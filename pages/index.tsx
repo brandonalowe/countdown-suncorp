@@ -1,40 +1,44 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import { TimerContainer } from '../components/TimerContainer'
- import { Header } from '../components/Header'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { TimerContainer } from "../components/TimerContainer";
+import { Header } from "../components/Header";
+import Image from "next/image";
+
+const flipImage = {
+  transform : "scaleX(-1)"
+}
 
 const Home: NextPage = () => {
-
   const [days, setDays] = useState<number>(0);
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const [message, setMessage] = useState<string>("");
 
-  let countDownDate = new Date(2023, 10, 6, 8, 30, 0).getTime()
-
+  let countDownDate = new Date(2023, 10, 6, 8, 30, 0).getTime();
 
   useEffect(() => {
-
-
     var updateTime = setInterval(() => {
       var now = new Date().getTime();
-      console.log(now)
-      console.log(countDownDate)
+      console.log(now);
+      console.log(countDownDate);
 
       var difference = countDownDate - now;
 
       var newDays = Math.floor(difference / (1000 * 60 * 60 * 24));
-      var newHours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var newMinutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      var newHours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var newMinutes = Math.floor(
+        (difference % (1000 * 60 * 60)) / (1000 * 60)
+      );
       var newSeconds = Math.floor((difference % (1000 * 60)) / 1000);
 
       setDays(newDays);
       setHours(newHours);
       setMinutes(newMinutes);
       setSeconds(newSeconds);
-
 
       if (difference <= 0) {
         clearInterval(updateTime);
@@ -44,12 +48,11 @@ const Home: NextPage = () => {
         setMinutes(0);
         setSeconds(0);
       }
-    })
+    });
 
     return () => {
       clearInterval(updateTime);
-    }
-
+    };
   }, [countDownDate]);
 
   return (
@@ -57,7 +60,6 @@ const Home: NextPage = () => {
       <Head>
         <title>Suncorp Countdown!</title>
         <link rel="icon" href="/favicon.ico" />
-
       </Head>
 
       <Header message={message} />
@@ -68,8 +70,24 @@ const Home: NextPage = () => {
         minutes={minutes}
         seconds={seconds}
       />
-    </div>
-  )
-}
 
-export default Home
+      <div className="flex">
+        <Image
+          src="/angry-goose.png" // Route of the image file
+          height={144} // Desired size with correct aspect ratio
+          width={144} // Desired size with correct aspect ratio
+          alt="Angry Goose"
+          style={flipImage}
+        />
+        <Image
+          src="/angry-goose.png" // Route of the image file
+          height={144} // Desired size with correct aspect ratio
+          width={144} // Desired size with correct aspect ratio
+          alt="Angry Goose"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Home;
