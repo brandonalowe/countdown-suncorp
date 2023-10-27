@@ -38,7 +38,7 @@ const Home: NextPage = () => {
 
       if (difference <= 0) {
         clearInterval(updateTime);
-        setMessage("The Launch Has Started");
+        setMessage("We made it!!!");
         setDays(0);
         setHours(0);
         setMinutes(0);
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center bg-green-950">
       <Head>
-        <title>Launch Countdown Timer</title>
+        <title>Suncorp Countdown!</title>
         <link rel="icon" href="/favicon.ico" />
 
       </Head>
